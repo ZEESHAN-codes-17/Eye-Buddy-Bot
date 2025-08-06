@@ -1,0 +1,747 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* ===========================================
+   CSS VARIABLES (Color Palette)
+   =========================================== */
+:root {
+    /* Primary Colors - Pink Theme */
+    --primary-gradient: linear-gradient(135deg, #89253E, #3A6186);
+    --primary-dark: #89253E;
+    --primary-light: #3A6186;
+    
+    /* Test Theme - Black and Gray Gradient */
+    --test-gradient: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+    --test-dark: #1a1a1a;
+    --test-light: #2c2c2c;
+    
+    /* Secondary Colors */
+    --accent-color: #6C63FF;
+    --white: #ffffff;
+    --light-gray: #f5f5f5;
+    --border-gray: #e0e0e0;
+    --text-dark: #000000;
+    --text-light: #333333;
+    
+    /* Background Colors */
+    --bg-glass: rgba(255, 255, 255, 0.95);
+    --bg-glass-light: rgba(255, 255, 255, 0.4);
+    --bg-glass-dark: rgba(255, 255, 255, 0.9);
+    --bg-user-message: #e3f2fd;
+    --bg-bot-message: #f5f5f5;
+    
+    /* Shadows */
+    --shadow-light: 0 10px 20px rgba(0, 0, 0, 0.2);
+    --shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.075);
+    --shadow-heavy: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    /* Spacing */
+    --border-radius: 36px;
+    --border-radius-small: 20px;
+    --border-radius-large: 70px;
+    --padding-small: 8px;
+    --padding-medium: 12px;
+    --padding-large: 20px;
+    
+    /* Font Sizes */
+    --font-small: 12px;
+    --font-medium: 14px;
+    --font-base: 16px;
+    --font-large: 17px;
+    --font-xl: 20px;
+}
+
+/* ===========================================
+   GLOBAL STYLES
+   =========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    background: var(--primary-gradient);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--padding-large);
+    transition: background 0.8s ease-in-out;
+}
+
+/* Test Theme Class */
+body.test-theme {
+    background: var(--test-gradient);
+}
+
+/* ===========================================
+   MAIN CONTAINER
+   =========================================== */
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    min-height: 750px;
+    background: var(--bg-glass);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+    padding: var(--padding-large);
+    margin: auto;
+}
+
+/* ===========================================
+   HEADER SECTION
+   =========================================== */
+.header {
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: var(--padding-large);
+}
+
+.header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.header p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+/* ===========================================
+   QUICK REPLIES
+   =========================================== */
+.quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: var(--padding-large);
+    justify-content: center;
+}
+
+.quick-reply {
+    font-family: "Montserrat", sans-serif;
+    padding: var(--padding-small) 16px;
+    background-color: var(--bg-glass-light);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--accent-color);
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: var(--font-medium);
+    color: var(--text-dark);
+}
+
+.quick-reply:hover {
+    background: var(--primary-light);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* Test theme for quick replies */
+body.test-theme .quick-reply:hover {
+    background: var(--test-light);
+}
+
+/* ===========================================
+   CHAT CONTAINER
+   =========================================== */
+.chat-container {
+    flex: 1;
+    min-height: 320px;
+    border: 1px solid var(--white);
+    overflow-y: auto;
+    padding: var(--padding-large);
+    margin-bottom: var(--padding-large);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    background-color: var(--bg-glass-dark);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+/* Scrollbar Styling */
+.chat-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+    background: var(--light-gray);
+    border-radius: 10px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+body.test-theme .chat-container::-webkit-scrollbar-thumb {
+    background: var(--test-light);
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+body.test-theme .chat-container::-webkit-scrollbar-thumb:hover {
+    background: var(--test-dark);
+}
+
+/* ===========================================
+   MESSAGES
+   =========================================== */
+.message {
+    margin: 10px 0;
+    padding: var(--padding-medium) 16px;
+    border-radius: 10px;
+    max-width: 80%;
+    box-shadow: var(--shadow-light);
+    animation: fadeIn 0.5s ease-in-out;
+    white-space: pre-line;
+    line-height: 1.5;
+    font-size: var(--font-base);
+}
+
+.user-message {
+    background-color: var(--bg-user-message);
+    margin-left: auto;
+    border-radius: var(--border-radius);
+    color: var(--text-dark);
+}
+
+.bot-message {
+    background-color: var(--bg-bot-message);
+    margin-right: auto;
+    border-radius: var(--border-radius);
+    color: var(--text-dark);
+}
+
+/* ===========================================
+   TYPING INDICATOR
+   =========================================== */
+.typing-indicator {
+    padding: var(--padding-medium);
+    background: var(--light-gray);
+    border-radius: 10px;
+    display: none;
+    width: fit-content;
+    margin: 10px 0;
+}
+
+.typing-indicator span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: bounce 1s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* ===========================================
+   VIDEO WRAPPER
+   =========================================== */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 40px;
+    box-shadow: var(--shadow-heavy);
+    margin: var(--padding-medium) 0;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+    border: none;
+}
+
+/* ===========================================
+   INPUT CONTAINER
+   =========================================== */
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: var(--padding-large);
+}
+
+#user-input {
+    flex: 1;
+    padding: var(--padding-medium);
+    border: 2px solid var(--accent-color);
+    box-shadow: var(--shadow-light);
+    border-radius: var(--border-radius);
+    font-size: var(--font-base);
+    font-family: "Montserrat", sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#user-input:focus {
+    border-color: var(--primary-light);
+}
+
+body.test-theme #user-input:focus {
+    border-color: var(--test-light);
+}
+
+#user-input::placeholder {
+    color: #999;
+}
+
+/* ===========================================
+   BUTTONS
+   =========================================== */
+#send-button {
+    padding: var(--padding-medium) 24px;
+    background: var(--primary-gradient);
+    box-shadow: var(--shadow-light);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    font-size: var(--font-base);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#send-button:hover {
+    background: var(--primary-gradient);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    padding: var(--padding-medium) 30px;
+}
+
+body.test-theme #send-button {
+    background: var(--test-gradient);
+}
+
+body.test-theme #send-button:hover {
+    background: var(--test-gradient);
+}
+
+#voice-btn {
+    background: var(--primary-gradient);
+    color: var(--white);
+    border: none;
+    padding: 10px;
+    box-shadow: var(--shadow-light);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: var(--font-base);
+    transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#voice-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+body.test-theme #voice-btn {
+    background: var(--test-gradient);
+}
+
+#voice-btn.listening {
+    background: #dc3545;
+    animation: pulse 1.5s infinite;
+}
+
+.test-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-gradient);
+    box-shadow: var(--shadow-light);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: var(--font-base);
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.test-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    padding: 18px;
+    font-size: var(--font-large);
+    font-weight: 700;
+}
+
+body.test-theme .test-button {
+    background: var(--test-gradient);
+}
+
+body.test-theme .test-button:hover {
+    background: var(--test-gradient);
+}
+/* ============================================disc button======================== */
+#disclaimer-button {
+    background-color: #e75acb;
+    border-radius: 20px;
+    border: none;
+    text-shadow: #000000;
+    padding: 0.8em 0.8em;
+    margin-top: 20px;
+}
+#disclaimer-button:hover {
+    background-color: #969edc;
+    color: #ffffff;
+}
+/* ===========================================
+   ANIMATIONS
+   =========================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+/* Large Desktop Screens */
+@media screen and (min-width: 1400px) {
+    .container {
+        max-width: 900px;
+    }
+    
+    .header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .header p {
+        font-size: 1.2rem;
+    }
+    
+    .chat-container {
+        min-height: 400px;
+    }
+}
+
+/* Desktop Screens */
+@media screen and (max-width: 1200px) {
+    .container {
+        max-width: 750px;
+    }
+    
+    body {
+        padding: 15px;
+    }
+}
+
+/* Laptop Screens */
+@media screen and (max-width: 992px) {
+    .container {
+        max-width: 700px;
+    }
+    
+    body {
+        padding: 12px;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .header p {
+        font-size: 1.05rem;
+    }
+}
+
+/* Tablet Screens */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+    
+    .container {
+        max-width: 100%;
+        width: 100%;
+        min-height: auto;
+        height: auto;
+        border-radius: 40px;
+        margin: 0;
+    }
+    
+    .chat-container {
+        min-height: 350px;
+        height: 350px;
+    }
+    
+    .header h1 {
+        font-size: 1.6rem;
+    }
+    
+    .header p {
+        font-size: 1rem;
+    }
+    
+    .quick-replies {
+        gap: 8px;
+    }
+    
+    .quick-reply {
+        font-size: 13px;
+        padding: 8px 14px;
+    }
+    
+    .message {
+        max-width: 85%;
+        font-size: 15px;
+    }
+}
+
+/* Large Mobile Screens */
+@media screen and (max-width: 600px) {
+    body {
+        padding: 8px;
+        padding-top: 15px;
+    }
+    
+    .container {
+        padding: 16px;
+        border-radius: 30px;
+    }
+    
+    .chat-container {
+        min-height: 300px;
+        height: 300px;
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 1.4rem;
+    }
+    
+    .header p {
+        font-size: 0.95rem;
+    }
+    
+    .quick-replies {
+        gap: 6px;
+        margin-bottom: 15px;
+    }
+    
+    .quick-reply {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    .input-container {
+        gap: 8px;
+    }
+    
+    #user-input {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    #send-button {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+    
+    #voice-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 14px;
+    }
+    
+    .message {
+        max-width: 90%;
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+}
+
+/* Small Mobile Screens */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 5px;
+        padding-top: 10px;
+    }
+    
+    .container {
+        padding: 12px;
+        border-radius: 25px;
+    }
+    
+    .chat-container {
+        min-height: 280px;
+        height: 280px;
+        padding: 12px;
+        border-radius: 25px;
+    }
+    
+    .header {
+        margin-bottom: 15px;
+    }
+    
+    .header h1 {
+        font-size: 1.25rem;
+    }
+    
+    .header p {
+        font-size: 0.9rem;
+    }
+    
+    .quick-replies {
+        gap: 5px;
+        margin-bottom: 12px;
+    }
+    
+    .quick-reply {
+        font-size: 11px;
+        padding: 5px 10px;
+        border-radius: 15px;
+    }
+    
+    .input-container {
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+    
+    #user-input {
+        font-size: 13px;
+        padding: 8px;
+        border-radius: 25px;
+    }
+    
+    #send-button {
+        padding: 8px 15px;
+        font-size: 13px;
+        border-radius: 25px;
+    }
+    
+    #voice-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 13px;
+    }
+    
+    .message {
+        max-width: 95%;
+        font-size: 13px;
+        padding: 8px 12px;
+        border-radius: 20px;
+    }
+    
+    .test-button {
+        padding: 12px;
+        font-size: 14px;
+        border-radius: 25px;
+    }
+}
+
+/* Extra Small Mobile Screens */
+@media screen and (max-width: 360px) {
+    body {
+        padding: 3px;
+        padding-top: 8px;
+    }
+    
+    .container {
+        padding: 10px;
+        border-radius: 20px;
+    }
+    
+    .chat-container {
+        min-height: 260px;
+        height: 260px;
+        padding: 10px;
+        border-radius: 20px;
+    }
+    
+    .header h1 {
+        font-size: 1.1rem;
+    }
+    
+    .header p {
+        font-size: 0.85rem;
+    }
+    
+    .quick-reply {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+    
+    .message {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    #user-input {
+        font-size: 12px;
+        padding: 6px;
+    }
+    
+    #send-button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    #voice-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+}
