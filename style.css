@@ -69,6 +69,7 @@ body {
     align-items: center;
     padding: var(--padding-large);
     transition: background 0.8s ease-in-out;
+    overflow-x: hidden;
 }
 
 /* Test Theme Class */
@@ -106,11 +107,13 @@ body.test-theme {
     font-size: 2rem;
     margin-bottom: 0.5rem;
     font-weight: 700;
+    word-wrap: break-word;
 }
 
 .header p {
     font-size: 1.1rem;
     color: var(--text-light);
+    word-wrap: break-word;
 }
 
 /* ===========================================
@@ -137,12 +140,17 @@ body.test-theme {
     transition: all 0.3s ease;
     font-size: var(--font-medium);
     color: var(--text-dark);
+    white-space: nowrap;
 }
 
 .quick-reply:hover {
     background: var(--primary-light);
     color: var(--white);
     transform: translateY(-2px);
+}
+
+.quick-reply:active {
+    transform: translateY(0);
 }
 
 /* Test theme for quick replies */
@@ -158,6 +166,7 @@ body.test-theme .quick-reply:hover {
     min-height: 320px;
     border: 1px solid var(--white);
     overflow-y: auto;
+    overflow-x: hidden;
     padding: var(--padding-large);
     margin-bottom: var(--padding-large);
     border-radius: var(--border-radius);
@@ -208,6 +217,8 @@ body.test-theme .chat-container::-webkit-scrollbar-thumb:hover {
     white-space: pre-line;
     line-height: 1.5;
     font-size: var(--font-base);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .user-message {
@@ -265,6 +276,7 @@ body.test-theme .chat-container::-webkit-scrollbar-thumb:hover {
     border-radius: 40px;
     box-shadow: var(--shadow-heavy);
     margin: var(--padding-medium) 0;
+    width: 100%;
 }
 
 .video-wrapper iframe {
@@ -284,10 +296,12 @@ body.test-theme .chat-container::-webkit-scrollbar-thumb:hover {
     display: flex;
     gap: 10px;
     margin-bottom: var(--padding-large);
+    flex-wrap: nowrap;
 }
 
 #user-input {
     flex: 1;
+    min-width: 0;
     padding: var(--padding-medium);
     border: 2px solid var(--accent-color);
     box-shadow: var(--shadow-light);
@@ -325,13 +339,18 @@ body.test-theme #user-input:focus {
     font-size: var(--font-base);
     font-weight: 600;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 #send-button:hover {
     background: var(--primary-gradient);
     transform: translateY(-2px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    padding: var(--padding-medium) 30px;
+}
+
+#send-button:active {
+    transform: translateY(0);
 }
 
 body.test-theme #send-button {
@@ -357,11 +376,16 @@ body.test-theme #send-button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 #voice-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+#voice-btn:active {
+    transform: scale(1);
 }
 
 body.test-theme #voice-btn {
@@ -392,9 +416,10 @@ body.test-theme #voice-btn {
 .test-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    padding: 18px;
-    font-size: var(--font-large);
-    font-weight: 700;
+}
+
+.test-button:active {
+    transform: translateY(0);
 }
 
 body.test-theme .test-button {
@@ -404,19 +429,32 @@ body.test-theme .test-button {
 body.test-theme .test-button:hover {
     background: var(--test-gradient);
 }
-/* ============================================disc button======================== */
+
+/* ============================================ DISCLAIMER BUTTON ======================== */
 #disclaimer-button {
     background-color: #e75acb;
     border-radius: 20px;
     border: none;
-    text-shadow: #000000;
-    padding: 0.8em 0.8em;
+    text-shadow: 0 1px 2px #000000;
+    padding: 0.8em;
     margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    color: var(--white);
+    font-family: "Montserrat", sans-serif;
 }
+
 #disclaimer-button:hover {
     background-color: #969edc;
     color: #ffffff;
+    transform: translateY(-2px);
 }
+
+#disclaimer-button:active {
+    transform: translateY(0);
+}
+
 /* ===========================================
    ANIMATIONS
    =========================================== */
@@ -490,6 +528,7 @@ body.test-theme .test-button:hover {
 @media screen and (max-width: 992px) {
     .container {
         max-width: 700px;
+        min-height: 650px;
     }
     
     body {
@@ -502,6 +541,10 @@ body.test-theme .test-button:hover {
     
     .header p {
         font-size: 1.05rem;
+    }
+    
+    .chat-container {
+        min-height: 300px;
     }
 }
 
@@ -520,15 +563,22 @@ body.test-theme .test-button:hover {
         height: auto;
         border-radius: 40px;
         margin: 0;
+        padding: 18px;
     }
     
     .chat-container {
         min-height: 350px;
-        height: 350px;
+        max-height: 50vh;
+        padding: 16px;
+    }
+    
+    .header {
+        margin-bottom: 15px;
     }
     
     .header h1 {
         font-size: 1.6rem;
+        margin-bottom: 0.3rem;
     }
     
     .header p {
@@ -537,6 +587,7 @@ body.test-theme .test-button:hover {
     
     .quick-replies {
         gap: 8px;
+        margin-bottom: 15px;
     }
     
     .quick-reply {
@@ -548,24 +599,45 @@ body.test-theme .test-button:hover {
         max-width: 85%;
         font-size: 15px;
     }
+    
+    .input-container {
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+    
+    #send-button:hover {
+        padding: var(--padding-medium) 24px;
+    }
+    
+    .test-button:hover {
+        padding: 15px;
+        font-size: var(--font-base);
+    }
 }
 
 /* Large Mobile Screens */
 @media screen and (max-width: 600px) {
     body {
         padding: 8px;
-        padding-top: 15px;
+        padding-top: 12px;
     }
     
     .container {
-        padding: 16px;
+        padding: 15px;
         border-radius: 30px;
+        min-height: auto;
     }
     
     .chat-container {
         min-height: 300px;
-        height: 300px;
-        padding: 15px;
+        max-height: 45vh;
+        padding: 14px;
+        border-radius: 30px;
+        margin-bottom: 15px;
+    }
+    
+    .header {
+        margin-bottom: 12px;
     }
     
     .header h1 {
@@ -578,45 +650,78 @@ body.test-theme .test-button:hover {
     
     .quick-replies {
         gap: 6px;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
     
     .quick-reply {
         font-size: 12px;
-        padding: 6px 12px;
+        padding: 7px 12px;
+        border-radius: 18px;
     }
     
     .input-container {
         gap: 8px;
+        margin-bottom: 12px;
     }
     
     #user-input {
         font-size: 14px;
-        padding: 10px;
+        padding: 10px 12px;
+        border-radius: 30px;
     }
     
     #send-button {
         padding: 10px 18px;
         font-size: 14px;
+        border-radius: 30px;
+    }
+    
+    #send-button:hover {
+        padding: 10px 18px;
     }
     
     #voice-btn {
-        width: 42px;
-        height: 42px;
+        width: 44px;
+        height: 44px;
         font-size: 14px;
     }
     
     .message {
-        max-width: 90%;
+        max-width: 88%;
         font-size: 14px;
         padding: 10px 14px;
+    }
+    
+    .video-wrapper {
+        border-radius: 30px;
+    }
+    
+    .video-wrapper iframe {
+        border-radius: 30px;
+    }
+    
+    .test-button {
+        padding: 12px;
+        font-size: 14px;
+        border-radius: 30px;
+    }
+    
+    .test-button:hover {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    #disclaimer-button {
+        padding: 0.7em;
+        font-size: 14px;
+        margin-top: 15px;
     }
 }
 
 /* Small Mobile Screens */
 @media screen and (max-width: 480px) {
     body {
-        padding: 5px;
+        padding: 6px;
         padding-top: 10px;
     }
     
@@ -627,13 +732,14 @@ body.test-theme .test-button:hover {
     
     .chat-container {
         min-height: 280px;
-        height: 280px;
+        max-height: 40vh;
         padding: 12px;
         border-radius: 25px;
+        margin-bottom: 12px;
     }
     
     .header {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
     
     .header h1 {
@@ -646,56 +752,84 @@ body.test-theme .test-button:hover {
     
     .quick-replies {
         gap: 5px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
     
     .quick-reply {
         font-size: 11px;
-        padding: 5px 10px;
+        padding: 6px 10px;
         border-radius: 15px;
     }
     
     .input-container {
         gap: 6px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
     
     #user-input {
         font-size: 13px;
-        padding: 8px;
+        padding: 9px 11px;
         border-radius: 25px;
     }
     
     #send-button {
-        padding: 8px 15px;
+        padding: 9px 15px;
         font-size: 13px;
         border-radius: 25px;
     }
     
+    #send-button:hover {
+        padding: 9px 15px;
+    }
+    
     #voice-btn {
-        width: 38px;
-        height: 38px;
+        width: 40px;
+        height: 40px;
         font-size: 13px;
     }
     
     .message {
-        max-width: 95%;
+        max-width: 90%;
         font-size: 13px;
-        padding: 8px 12px;
+        padding: 9px 12px;
         border-radius: 20px;
     }
     
-    .test-button {
-        padding: 12px;
-        font-size: 14px;
+    .video-wrapper {
         border-radius: 25px;
+    }
+    
+    .video-wrapper iframe {
+        border-radius: 25px;
+    }
+    
+    .test-button {
+        padding: 11px;
+        font-size: 13px;
+        border-radius: 25px;
+    }
+    
+    .test-button:hover {
+        padding: 11px;
+        font-size: 13px;
+    }
+    
+    #disclaimer-button {
+        padding: 0.6em;
+        font-size: 13px;
+        margin-top: 12px;
+        border-radius: 18px;
+    }
+    
+    .typing-indicator {
+        padding: 10px;
     }
 }
 
 /* Extra Small Mobile Screens */
 @media screen and (max-width: 360px) {
     body {
-        padding: 3px;
+        padding: 4px;
         padding-top: 8px;
     }
     
@@ -705,10 +839,15 @@ body.test-theme .test-button:hover {
     }
     
     .chat-container {
-        min-height: 260px;
-        height: 260px;
+        min-height: 250px;
+        max-height: 38vh;
         padding: 10px;
         border-radius: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .header {
+        margin-bottom: 8px;
     }
     
     .header h1 {
@@ -719,29 +858,155 @@ body.test-theme .test-button:hover {
         font-size: 0.85rem;
     }
     
-    .quick-reply {
-        font-size: 10px;
-        padding: 4px 8px;
+    .quick-replies {
+        gap: 4px;
+        margin-bottom: 8px;
     }
     
-    .message {
-        font-size: 12px;
-        padding: 6px 10px;
+    .quick-reply {
+        font-size: 10px;
+        padding: 5px 8px;
+        border-radius: 12px;
+    }
+    
+    .input-container {
+        gap: 5px;
+        margin-bottom: 8px;
     }
     
     #user-input {
         font-size: 12px;
-        padding: 6px;
+        padding: 8px 10px;
+        border-radius: 20px;
     }
     
     #send-button {
-        padding: 6px 12px;
+        padding: 8px 12px;
         font-size: 12px;
+        border-radius: 20px;
+    }
+    
+    #send-button:hover {
+        padding: 8px 12px;
     }
     
     #voice-btn {
-        width: 35px;
-        height: 35px;
+        width: 36px;
+        height: 36px;
         font-size: 12px;
+    }
+    
+    .message {
+        max-width: 92%;
+        font-size: 12px;
+        padding: 8px 10px;
+        border-radius: 18px;
+    }
+    
+    .video-wrapper {
+        border-radius: 20px;
+    }
+    
+    .video-wrapper iframe {
+        border-radius: 20px;
+    }
+    
+    .test-button {
+        padding: 10px;
+        font-size: 12px;
+        border-radius: 20px;
+    }
+    
+    .test-button:hover {
+        padding: 10px;
+        font-size: 12px;
+    }
+    
+    #disclaimer-button {
+        padding: 0.5em;
+        font-size: 12px;
+        margin-top: 10px;
+        border-radius: 15px;
+    }
+    
+    .typing-indicator {
+        padding: 8px;
+    }
+    
+    .typing-indicator span {
+        width: 6px;
+        height: 6px;
+    }
+}
+
+/* Landscape Orientation for Mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 8px;
+        align-items: flex-start;
+    }
+    
+    .container {
+        min-height: auto;
+        padding: 12px;
+    }
+    
+    .chat-container {
+        min-height: 200px;
+        max-height: 50vh;
+    }
+    
+    .header {
+        margin-bottom: 10px;
+    }
+    
+    .header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .header p {
+        font-size: 0.9rem;
+    }
+    
+    .quick-replies {
+        margin-bottom: 10px;
+    }
+}
+
+/* Very short screens */
+@media screen and (max-height: 600px) {
+    .container {
+        min-height: auto;
+    }
+    
+    .chat-container {
+        min-height: 250px;
+        max-height: 45vh;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .quick-reply,
+    #send-button,
+    #voice-btn,
+    .test-button,
+    #disclaimer-button {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    /* Increase touch targets on mobile */
+    .quick-reply {
+        min-height: 36px;
+    }
+    
+    #send-button {
+        min-height: 40px;
+    }
+    
+    #voice-btn {
+        min-width: 40px;
+        min-height: 40px;
     }
 }
